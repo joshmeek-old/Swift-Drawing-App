@@ -13,6 +13,7 @@ class ViewController: UIViewController, UIPickerViewDelegate {
     @IBOutlet weak var drawView: DrawView!
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var slider: UISlider!
+    @IBOutlet weak var eraser: UIButton!
     
     var colors: [String] = ["Black", "Blue", "Green", "Red", "Yellow", "Orange"]
     
@@ -20,6 +21,7 @@ class ViewController: UIViewController, UIPickerViewDelegate {
         super.viewDidLoad()
         self.picker.hidden = true
         self.slider.hidden = true
+        self.eraser.hidden = true
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -35,13 +37,17 @@ class ViewController: UIViewController, UIPickerViewDelegate {
     }
     
     @IBAction func colorTapped(button: UIButton!) {
-        picker.hidden = !picker.hidden
-        slider.hidden = !slider.hidden
+        hideEditor()
     }
     
     @IBAction func sliderValueChanged(slider: UISlider!) {
         //println(Int(slider.value * 100))
         drawView.lineWidth = CGFloat(slider.value * 100)
+    }
+    
+    @IBAction func eraserTapped() {
+        drawView.drawColor = UIColor.whiteColor()
+        hideEditor()
     }
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView!) -> Int {
@@ -62,7 +68,7 @@ class ViewController: UIViewController, UIPickerViewDelegate {
     }
     
     func colorSelection(color: String) {
-        var theDrawView = drawView as DrawView
+        //var theDrawView = drawView as DrawView
         var colorSet: UIColor!
         
         switch color {
@@ -84,12 +90,13 @@ class ViewController: UIViewController, UIPickerViewDelegate {
         
         hideEditor()
         
-        theDrawView.drawColor = colorSet
+        drawView.drawColor = colorSet
     }
     
     func hideEditor() {
         picker.hidden = !picker.hidden
         slider.hidden = !slider.hidden
+        eraser.hidden = !eraser.hidden
     }
 
 }
