@@ -13,6 +13,7 @@ class DrawView: UIView {
     var lines: [Line] = []
     var lastPoint: CGPoint!
     var drawColor = UIColor.blackColor()
+    var lineWidth: CGFloat = 5
     
     init(coder aDecoder: NSCoder!) {
         super.init(coder: aDecoder)
@@ -33,7 +34,7 @@ class DrawView: UIView {
     override func drawRect(rect: CGRect) {
         var context = UIGraphicsGetCurrentContext()
         CGContextBeginPath(context)
-        CGContextSetLineWidth(context, 5)
+        CGContextSetLineWidth(context, lineWidth)
         CGContextSetLineCap(context, kCGLineCapRound)
         for line in lines {
             CGContextMoveToPoint(context, line.start.x, line.start.y)

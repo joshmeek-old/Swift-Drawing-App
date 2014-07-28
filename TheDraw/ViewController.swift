@@ -12,12 +12,14 @@ class ViewController: UIViewController, UIPickerViewDelegate {
     
     @IBOutlet weak var drawView: DrawView!
     @IBOutlet weak var picker: UIPickerView!
+    @IBOutlet weak var slider: UISlider!
     
     var colors: [String] = ["Black", "Blue", "Green", "Red", "Yellow", "Orange"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.picker.hidden = true
+        self.slider.hidden = true
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -34,6 +36,12 @@ class ViewController: UIViewController, UIPickerViewDelegate {
     
     @IBAction func colorTapped(button: UIButton!) {
         picker.hidden = !picker.hidden
+        slider.hidden = !slider.hidden
+    }
+    
+    @IBAction func sliderValueChanged(slider: UISlider!) {
+        //println(Int(slider.value * 100))
+        drawView.lineWidth = CGFloat(slider.value * 100)
     }
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView!) -> Int {
@@ -60,28 +68,28 @@ class ViewController: UIViewController, UIPickerViewDelegate {
         switch color {
             case "Black":
                 colorSet = UIColor.blackColor()
-                picker.hidden = !picker.hidden
             case "Blue":
                 colorSet = UIColor.blueColor()
-                picker.hidden = !picker.hidden
             case "Green":
                 colorSet = UIColor.greenColor()
-                picker.hidden = !picker.hidden
             case "Red":
                 colorSet = UIColor.redColor()
-                picker.hidden = !picker.hidden
             case "Yellow":
                 colorSet = UIColor.yellowColor()
-                picker.hidden = !picker.hidden
             case "Orange":
                 colorSet = UIColor.orangeColor()
-                picker.hidden = !picker.hidden
             default:
                 colorSet = UIColor.whiteColor()
-                picker.hidden = !picker.hidden
         }
         
+        hideEditor()
+        
         theDrawView.drawColor = colorSet
+    }
+    
+    func hideEditor() {
+        picker.hidden = !picker.hidden
+        slider.hidden = !slider.hidden
     }
 
 }
