@@ -11,4 +11,4 @@ This is just a small project that I'm working on in order to get familiarized wi
 1. ~~Add a slider to adjust line width~~
 2. More colors
 3. Ability to save drawing to camera roll
-4. Eraser
+4. ~~Eraser~~
