@@ -15,17 +15,17 @@ class DrawView: UIView {
     var drawColor = UIColor.blackColor()
     var lineWidth: CGFloat = 5
     
-    init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    override func touchesBegan(touches: NSSet!, withEvent event: UIEvent!) {
-        lastPoint = touches.anyObject().locationInView(self)
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        lastPoint = touches.anyObject()?.locationInView(self)
     }
     
-    override func touchesMoved(touches: NSSet!, withEvent event: UIEvent!) {
-        var newPoint = touches.anyObject().locationInView(self)
-        lines.append(Line(start: lastPoint, end: newPoint, color: drawColor))
+    override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
+        var newPoint = touches.anyObject()?.locationInView(self)
+        lines.append(Line(start: lastPoint, end: newPoint!, color: drawColor))
         lastPoint = newPoint
         
         self.setNeedsDisplay()
