@@ -25,7 +25,7 @@ class DrawView: UIView {
     
     override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
         var newPoint = touches.anyObject()?.locationInView(self)
-        lines.append(Line(start: lastPoint, end: newPoint!, color: drawColor))
+        lines.append(Line(start: lastPoint, end: newPoint!, color: drawColor, lineWidth: lineWidth)) //adding lineWidth
         lastPoint = newPoint
         
         self.setNeedsDisplay()
@@ -34,9 +34,10 @@ class DrawView: UIView {
     override func drawRect(rect: CGRect) {
         var context = UIGraphicsGetCurrentContext()
         CGContextBeginPath(context)
-        CGContextSetLineWidth(context, lineWidth)
-        CGContextSetLineCap(context, kCGLineCapRound)
+
         for line in lines {
+            CGContextSetLineWidth(context, line.lineWidth) // drawing each line with spesific line widths.
+            CGContextSetLineCap(context, kCGLineCapRound)
             CGContextMoveToPoint(context, line.start.x, line.start.y)
             CGContextAddLineToPoint(context, line.end.x, line.end.y)
             CGContextSetStrokeColorWithColor(context, line.color.CGColor)
